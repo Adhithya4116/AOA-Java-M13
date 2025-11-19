@@ -1,6 +1,7 @@
 
+
 # EX 3C Tug of War problem - Backtracking.
-## DATE : 19-09-2025
+## DATE:15/09/25
 ## AIM:
 To write a Java program to for given constraints.
 Given an integer array nums, return true if you can partition the array into two subsets such that the sum of the elements in both subsets is equal or false otherwise.
@@ -17,70 +18,57 @@ Constraints:
 1 <= nums[i] <= 100
 
 ## Algorithm
-1. Start  
-2. Read the integer `n` — the number of elements in the array.  
-3. Read `n` integers into the array `nums`.  
-4. Compute the total sum of all elements:  
-   - `totalSum = sum(nums)`  
-5. If `totalSum` is **odd**, return `false` because it cannot be equally partitioned.  
-6. Calculate the target subset sum:  
-   - `target = totalSum / 2`  
-7. Initialize a boolean array `dp[target + 1]` where `dp[i]` represents whether a subset sum of `i` is possible.  
-   - Set `dp[0] = true` (base case: sum `0` is always achievable).  
-8. For each element `num` in `nums`:  
-   - Iterate `j` from `target` down to `num`.  
-   - Update: `dp[j] = dp[j] || dp[j - num]`  
-   - (This ensures we use each element only once per subset.)  
-9. After processing all numbers, if `dp[target]` is `true`, print `true`; otherwise, print `false`.  
-10. End  
-  
+1. Start and read the array elements.
+
+2.Calculate the total sum of all elements.
+
+3.If the total sum is odd, return false (cannot partition equally).
+
+4.Use dynamic programming to check if any subset sums to totalSum / 2.
+
+5.If such a subset exists, return true; otherwise, return false.
+
 
 ## Program:
 ```
 /*
+Program to implement Reverse a String
 Developed by: Adhithya Perumal D
-Register Number:  212222230007   
+Register Number:  212222230007
 */
+
 import java.util.Scanner;
-
 public class Solution {
-
     public boolean canPartition(int[] nums) {
-        int totalSum = 0;
-        for (int num : nums) {
-            totalSum += num;
+        //Type your code here
+        if(nums.length==0)
+        return false;
+        int totalSum=0;
+        for(int num:nums){
+            totalSum+=num;
         }
-
-        // If total sum is odd, can't split equally
-        if (totalSum % 2 != 0) return false;
-
-        int target = totalSum / 2;
-        boolean[] dp = new boolean[target + 1];
-        dp[0] = true; // Base case: sum 0 is always possible
-
-        // For each number, update dp array backward
-        for (int num : nums) {
-            for (int j = target; j >= num; j--) {
-                dp[j] = dp[j] || dp[j - num];
+        if(totalSum%2!=0)
+        return false;
+        int subSetSum=totalSum/2;
+        boolean[] dp=new boolean[subSetSum+1];
+        dp[0]=true;
+        for(int curr:nums){
+            for(int j=subSetSum;j>=curr;j--){
+                dp[j]|=dp[j-curr];
             }
         }
-
-        return dp[target];
+        return dp[subSetSum];
+        
+        
     }
-
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         Solution sol = new Solution();
-
-        //System.out.print("Enter the number of elements: ");
         int n = scanner.nextInt();
-
         int[] nums = new int[n];
-       // System.out.println("Enter the elements of the array:");
         for (int i = 0; i < n; i++) {
             nums[i] = scanner.nextInt();
         }
-
         boolean canBePartitioned = sol.canPartition(nums);
         System.out.println(canBePartitioned);
     }
@@ -90,7 +78,7 @@ public class Solution {
 
 ## Output:
 
-<img width="726" height="381" alt="image" src="https://github.com/user-attachments/assets/4a848402-a5d7-49d0-9b7e-c8df325db96c" />
+<img width="401" height="232" alt="image" src="https://github.com/user-attachments/assets/25f33a98-9e09-452b-a2e8-113f01e309b1" />
 
 
 ## Result:
